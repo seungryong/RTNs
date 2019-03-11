@@ -1,48 +1,38 @@
-# FCSS (Fully Convolutional Self-Similarity) Descriptor
+# RTNs (Recurrent Transformer Networks)
 
-> Version 1.0 (14 Aug. 2017)
+> Version 1.0 (11 Mar. 2019)
 >
-> Contributed by Seungryong Kim (srkim89@yonsei.ac.kr).
+> Contributed by Seungryong Kim (seungryong.kim@epfl.ch).
 
-This code is written in MATLAB, and implements the FCSS descriptor [[project website](https://seungryong.github.io/FCSS/)]. 
+This code is written in MATLAB, and implements the RTNs [[project website](https://seungryong.github.io/RTNs/)].
 
 ## Dependencies ##
   - Download [[VLFeat](http://www.vlfeat.org/)] and [[MatConvNet](http://www.vlfeat.org/matconvnet/)].
   - Download the datasets:
-    - [[Taniai Benchmark](http://taniai.space/projects/cvpr16_dccs/)];
-    - [[Proposal Flow Benchmark](http://www.di.ens.fr/willow/research/proposalflow/)];
-    - [[Pascal-VOC Part Dataset](https://people.eecs.berkeley.edu/~tinghuiz/projects/flowWeb/)].
+    - [[Proposal Flow Benchmark](https://drive.google.com/open?id=1hEC2yxaEALouPMsUVzHp7hZ-Ka3C3sZo)];
+    - [[PASCAL-2011 Part Dataset](http://host.robots.ox.ac.uk/pascal/VOC/voc2011/VOCtrainval_25-May-2011.tar)].
+
+## Pre-trained Models ##
+  - RTNs with synthetic training (in `data/RTNs_synthetic`) [[RTNs_synthetic](https://drive.google.com/open?id=14lXC1qu1HRT8X-ma5DfDqOv-7NyAgWRB)].
+  - RTNs on PF-PASCAL (in `data/RTNs`) [[RTNs](https://drive.google.com/open?id=1MgINF4Q9ZAM3SLdcEOM7i8eflYjs9yM9)].
 
 ## Getting started ##
-  - `main_FCSS_test.m` shows how to compute dense flow fields using the pretrained FCSS descriptor (`data/fcss/net-epoch.mat`) with SIFT Flow [1] and Proposal Flow [2] optimization.
-  - `main_FCSS_train_Tatsunori.m`  shows how to train a new model.
-  - `get_train_Tatsunori.m`: prepares the filenames of training samples.
+  - `get_train_pascal_synthetic.m` get the synthetic training data from PASCAL-VOC 2011 datasets.
+  - `get_train_pf_pascal.m` get the training data from PF-PASCAL datasets.
+  - `train_pascal_synthetic.m` trains the RTNs with the synthetic training data
+  - `train_pf_pascal.m` trains the RTNs on the PF-PASCAL training data
+  - `test_pf_pascal.m` tests the RTNs on the PF-PASCAL training data
 
-## Main functions ##
-  - `getBatch_Tatsunori.m`: prepares the images of training samples.
-  - `init_FCSS.m`: builds an initial model of FCSS descriptor.
-  - `CSSlayer.m`: builds convolutional self-similarity (CSS) layers using a bilinear sampler similar to spatial transformer networks (STNs) [3].
-  - `CSSlayer_shift.m`: builds convolutional self-similarity (CSS) using Taylor expansion.
-  - `CorrespondenceLoss.m`: builds a weakly-supervised correspondence loss for FCSS descriptor.
-  
 ## Notes ##
 
-  - The code is provided for academic use only. Use of the code in any commercial or industrial related activities is prohibited. 
-  - If you use our code, please cite the paper. 
+  - The code is provided for academic use only. Use of the code in any commercial or industrial related activities is prohibited.
+  - If you use our code, please cite the paper.
 
 ```
-@InProceedings{kim2017,
-author = {Seungryong Kim and Dongbo Min and Bumsub Ham and Sangryul Jeon and Stephen Lin and Kwanghoon Sohn},
-title = {FCSS: Fully Convolutional Self-Similarity for Dense Semantic Correspondence},
-booktitle = {Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR), IEEE},
-year = {2017}
+@InProceedings{kim2018nips,
+author = {Seungryong Kim and Stephen Lin and Sangryul Jeon and Dongbo Min and Kwanghoon Sohn},
+title = {Recurrent Transformer Networks for Semantic Correspondence},
+booktitle = {Proceedings of the Neural Information Processing Systems (NeurIPS 2018)},
+year = {2018}
 }
 ```
-
-## References ##
-
-[1] C. Liu, J. Yuen, and A. Torralba, "Sift flow: Dense correspondence across scenes and its applications", IEEE Trans. Pattern Anal. Mach. Intell. (TPAMI), 33(5), pp. 815-830, 2011.
-
-[2] B. Ham, M. Cho, C. Schmid, and J. Ponce, "Proposal flow: Semantic correspondences from object proposals", IEEE Trans. Pattern Anal. Mach. Intell. (TPAMI), 2017.
-
-[3] M. Jaderberg, K. Simonyan, A. Zisserman, and K. Kavukcuoglu, "Spatial transformer networks", Neural Information Processing Systems (NIPS), 2015.
